@@ -1,5 +1,6 @@
 import os
 import tempfile
+from random import randint
 
 
 class File:
@@ -20,7 +21,8 @@ class File:
     def __add__(self, other):
         content1 = self.read()
         content2 = other.read()
-        result_file = File(tempfile.gettempdir() + "/add_result")
+        new_path = tempfile.gettempdir() + "/" + str(randint(0, 1000))
+        result_file = File(new_path)
         result_file.write(content1 + content2)
         return result_file
 
@@ -40,9 +42,3 @@ class File:
         result = self.read().split("\n")[self.current] + "\n"
         self.current += 1
         return result
-
-
-if __name__ == "__main__":
-    test = File("some_filename")
-    test2 = File("some_filename_1")
-    test3 = test + test2
